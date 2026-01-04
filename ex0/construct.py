@@ -10,7 +10,7 @@ def main() -> None:
     """
 
     # sys.prefixは現在実行されている環境
-    # sys.base_prefixは元々のPythonがインストールされちる環境
+    # sys.base_prefixは元々のPythonがインストールされている環境
     is_venv = (sys.prefix != sys.base_prefix)
 
     if is_venv:
@@ -29,8 +29,8 @@ def outside_matrix() -> None:
     print("MATRIX STATUS: You're still plugged in")
     print()
 
-    # 1.
-    print(f"Current Python: {sys.executable}\n"
+    # 1.正規化
+    print(f"Current Python: {os.path.realpath(sys.executable)}\n"
           "Virtual Environment: None detected")
     print()
 
