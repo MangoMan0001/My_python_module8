@@ -34,7 +34,8 @@ def main() -> None:
         print("   source my_env/bin/activate")
         print("   pip install -r ex1/requirements.txt")
         print("\n2. Using Poetry (Modern):")
-        print("   poetry install")
+        print("   poetry install -C ex1")
+        print("   poetry -C ex1 run python3 loading.py")
         return
     print()
 

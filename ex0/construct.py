@@ -4,21 +4,6 @@ import os
 import site
 
 
-def main() -> None:
-    """
-    仮想環境判定関数
-    """
-
-    # sys.prefixは現在実行されている環境
-    # sys.base_prefixは元々のPythonがインストールされている環境
-    is_venv = (sys.prefix != sys.base_prefix)
-
-    if is_venv:
-        inside_matrix()
-    else:
-        outside_matrix()
-
-
 def outside_matrix() -> None:
     """
     仮想環境に入っていない場合
@@ -29,8 +14,8 @@ def outside_matrix() -> None:
     print("MATRIX STATUS: You're still plugged in")
     print()
 
-    # 1.正規化
-    print(f"Current Python: {os.path.realpath(sys.executable)}\n"
+    # 1.現在使用しているpython
+    print(f"Current Python: {sys.executable}\n"
           "Virtual Environment: None detected")
     print()
 
@@ -61,9 +46,9 @@ def inside_matrix() -> None:
 
     # 仮想環境の情報を出力
     base_name = os.path.basename(sys.prefix)
-    print(f"Current Python: {sys.executable}\n"
-          f"Virtual Environment: {base_name}\n"
-          f"Environment Path: {sys.prefix}")
+    print(f"Current Python: {sys.executable}\n"  # .現状使用するpython
+          f"Virtual Environment: {base_name}\n"  # .仮想環境名
+          f"Environment Path: {sys.prefix}")  # .仮想環境へのパス(site.pyによって切り替わる)
     print()
 
     # インストール先のパスを表示
@@ -72,6 +57,21 @@ def inside_matrix() -> None:
           "Safe to install packages without affecting\n"
           "the global system.\n"
           f"Package installation path:\n{ins_path}")
+
+
+def main() -> None:
+    """
+    仮想環境判定関数
+    """
+
+    # sys.prefixは現在実行されている環境
+    # sys.base_prefixは元々のPythonがインストールされている環境
+    is_venv = (sys.prefix != sys.base_prefix)
+
+    if is_venv:
+        inside_matrix()
+    else:
+        outside_matrix()
 
 
 if __name__ == "__main__":
