@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import os
-from dotenv import load_dotenv
 
 
 def main() -> None:
@@ -11,6 +9,16 @@ def main() -> None:
     print()
     print("ORACLE STATUS: Reading the Matrix...")
     print()
+    try:
+        import os
+        from dotenv import load_dotenv
+    except ModuleNotFoundError as e:
+        print(f"ModuleNotFoundError: {e}")
+        print("You need to install dotenv.")
+        print("   python3 -m venv ex2_env")
+        print("   source ex2_env/bin/activate")
+        print("   pip install python-dotenv")
+        return
 
     # 1.環境変数を.envから読み込む
     if load_dotenv():
@@ -53,11 +61,13 @@ def main() -> None:
         print("[OK] No hardcoded secrets detected")
     else:
         print("[KO] hardcoded secrets detected")
-    # .check2 実際にファイルが存在するか
+    # .check2 実際に.envファイルが存在するか
     if os.path.exists(".env"):
         print("[OK] .env file properly configured")
     else:
         print("[KO] .env file not found")
+        print("    If you were running it outside the ex2 directory, "
+              "please try running it inside the ex2 directory.")
     # .check3 .envが読み込まれたか
     if sec3:
         print("[OK] Production overrides available")
